@@ -7,5 +7,29 @@ Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
-Imports: Rcpp (>= 0.12.9)
+Imports: Rcpp (>= 0.12.9),
+    tvm,
+    tidyquant,
+    lubridate,
+    forecast,
+    mvtnorm,
+    data.table
 LinkingTo: Rcpp, RcppArmadillo
+Depends: xts
+Collate: 
+    'aggregatePrivates.R'
+    'captureErrors.R'
+    'calc_PME.R'
+    'cull_data.R'
+    'calc_privatePerformance.R'
+    'abbToStrategy.R'
+    'get_privateHoldings.R'
+    'get_privateValuations.R'
+    'get_privateCashFlows.R'
+    'get_privateCommitments.R'
+    'calc_distributionRate.R'
+    'calc_drawdownRate.R'
+    'PrivateFund.R'
+    'RcppExports.R'
+    'cashFlowSimulation.R'
+    'simulateCashRate.R'

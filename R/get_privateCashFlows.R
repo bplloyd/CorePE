@@ -1,34 +1,15 @@
-#' @include executeSP.R
-#' @include abbToStrategy.R
-#' @include make_paramString.R
+#' @include get_privateHoldings.R
 
 get_privateCashFlows = function(id=NA, strategy=NA, vintage=NA, active = NA, freq = 'm', distIsPositive = T, multiplier = 1){
-  # paramString = make_paramString(id, strategy, vintage, active)
-  # procString = "usp_get_CashFlows"
-  # cf = executeSP(procString, paramString, schema = "Core")
-
-  # cf = cash_flows
+ 
   if(!is.na(id)) {
     cf = cash_flows[cash_flows$Holding_ID == id, , drop = FALSE]
   } else {
-    # holdings = private_holdings
     holdings = get_privateHoldings(id = id, strategy = strategy, vintage = vintage, active = active)
     cf = cash_flows[cash_flows$Holding_ID %in% holdings$Holding_ID, ]
-    # if(!is.na(strategy)){
-    #   holdings = holdings[(!is.na(holdings$Strategy)) & (holdings$Strategy == strategy), ,drop = FALSE]
-    # }
-    # if(!is.na(vintage)) {
-    #   holdings = holdings[(!is.na(holdings$Vintage)) & (holdings$Vintage == vintage), ,drop = FALSE]
-    # }
-    # if(!is.na(active)) {
-    #   holdings = holdings[(!is.na(holdings$Active)) & (holdings$Active == active), ,drop = FALSE]
-    # }
   }
-
-
   names(cf)[names(cf) == "Effective_Date"] = "Date"
 
-  #cf = dplyr::tbl_df(cf)
 
   if(nrow(cf)>0){
 

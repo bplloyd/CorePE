@@ -1,36 +1,14 @@
-#' @include executeSP.R
-#' @include abbToStrategy.R
-#' @include make_paramString.R
+#' @include get_privateHoldings.R
 
+get_privateCommitments = function(id=NA, strategy=NA, vintage=NA, active = NA, freq = 'd', multiplier = 1){
 
-get_privateCommitments = function(id=NA, strategy=NA, vintage=NA, active = NA, freq = 'd', multiplier = 1)
-{
-  # paramString = make_paramString(id, strategy, vintage, active)
-  # procString = "usp_get_Commitments"
-  # commits = executeSP(procString, paramString, schema = "Core")
-  # commits$Effective_Date = as.Date.factor(commits$Effective_Date)
-
-  # cf = cash_flows
-  # commits = commitments
   if(!is.na(id)) {
     commits = commitments[commitments$Holding_ID == id, , drop = FALSE]
   } else {
-    holdings = private_holdings
-    if(!is.na(strategy)){
-      holdings = holdings[(!is.na(holdings$Strategy)) & (holdings$Strategy == strategy), ,drop = FALSE]
-    }
-    if(!is.na(vintage)) {
-      holdings = holdings[(!is.na(holdings$Vintage)) & (holdings$Vintage == vintage), ,drop = FALSE]
-    }
-    if(!is.na(active)) {
-      holdings = holdings[(!is.na(holdings$Active)) & (holdings$Active == active), ,drop = FALSE]
-    }
+    holdings = get_privateHoldings(id = id, strategy = strategy, vintage = vintage, active = active)
+    commits = commitments[commitments$Holding_ID %in% holdings$Holding_ID, ]
   }
-  commits = commitments[commitments$Holding_ID %in% holdings$Holding_ID, ]
   names(commits)[names(commits) == "Effective_Date"] = "Date"
-
-
-
   if(nrow(commits)>0)
   {
     commits = tidyquant::as_xts_(commits, "Date")
