@@ -95,12 +95,13 @@ setMethod("initialize",
               }
 
               if(!is.na(active)){
-                if(active == 1)
+                if(active == 1){
                   name = paste0(name, " (Active Funds Only")
-                else
+                }
+                if(active == 0){
                   name = paste0(name, " (Inactive Funds Only")
+                }
               }
-
             } else {
               .Object@ID = id
 
@@ -555,7 +556,7 @@ setMethod(f = "loadUnderlying",
           } else if (mode == "s"){
             vintages = sort(unique(pef@Holdings$Vintage))
             names(vintages) = vintages
-            strategies = sort(unique(as.character.factor(pef@Holdings$Strategy)))
+            strategies = sort(unique(pef@Holdings$Strategy))
             names(strategies) = strategies
             # underlying = lapply(strategies,
             #                     function(s) lapply(vintages,

@@ -13,9 +13,14 @@ Imports: Rcpp (>= 0.12.9),
     lubridate,
     forecast,
     mvtnorm,
-    data.table
+    wrapr,
+    Quandl,
+    data.table,
+    PerformanceAnalytics
 LinkingTo: Rcpp, RcppArmadillo
-Depends: xts
+Depends: xts,
+    magrittr,
+    lubridate
 Collate: 
     'aggregatePrivates.R'
     'captureErrors.R'
@@ -31,5 +36,9 @@ Collate:
     'calc_drawdownRate.R'
     'PrivateFund.R'
     'RcppExports.R'
+    'as_ts.R'
     'cashFlowSimulation.R'
+    'get_series.R'
+    'loadIndices.R'
     'simulateCashRate.R'
+LazyData: true
